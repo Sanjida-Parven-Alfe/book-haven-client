@@ -10,7 +10,7 @@ const stats = [
 
 const ScrollStats = () => {
   return (
-    <div className=" overflow-hidden bg-gray-100 py-4">
+    <div className=" overflow-hidden bg-amber-100 py-4">
       <div className="flex animate-scroll gap-10 whitespace-nowrap">
         {stats.map((stat, idx) => (
           <div key={idx} className="flex gap-2 items-center px-6">

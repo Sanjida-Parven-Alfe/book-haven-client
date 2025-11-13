@@ -30,6 +30,7 @@ const Home = () => {
     <div className="home-page bg-base-100 text-base-content">
       {/* Banner Section */}
       <section className="banner bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white h-[500px] flex flex-col justify-center items-center relative overflow-hidden">
+
         <motion.h1
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
