@@ -5,7 +5,6 @@ import { RouterProvider } from "react-router";
 import { router } from "./router/routes.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
 
-// Theme context
 export const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
