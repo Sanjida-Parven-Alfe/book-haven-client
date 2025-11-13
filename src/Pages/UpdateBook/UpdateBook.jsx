@@ -52,9 +52,9 @@ const UpdateBook = () => {
   }
 
   return (
-    <div className="p-10 bg-base-100 text-base-content min-h-screen">
+    <div className="p-5 md:p-10 bg-base-100 text-base-content min-h-screen">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl font-bold text-center mb-6">✏️ Update Book</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Update Book</h1>
 
       <form
         onSubmit={handleUpdate}

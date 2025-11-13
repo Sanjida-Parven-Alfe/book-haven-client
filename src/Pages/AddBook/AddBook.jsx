@@ -1,4 +1,3 @@
-// src/Pages/AddBook/AddBook.jsx
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.config";
@@ -15,12 +14,10 @@ const AddBook = () => {
     coverImage: "",
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,13 +56,15 @@ const AddBook = () => {
   };
 
   return (
-    <div className="px-20 pb-20 pt-10 flex flex-col justify-center items-center bg-base-100 text-base-content">
+    <div className="px-4 sm:px-6 md:px-10 pb-10 pt-6 md:pt-10 flex flex-col justify-center items-center bg-base-100 text-base-content">
       <Toaster position="top-right" reverseOrder={false} />
-      <h1 className="text-3xl text-center font-bold mb-6">Add a New Book</h1>
+      <h1 className="text-2xl sm:text-3xl md:text-3xl text-center font-bold mb-6">
+        Add a New Book
+      </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 w-[600px] bg-base-200 p-6 rounded-lg shadow-md"
+        className="flex flex-col gap-4 w-full max-w-xs sm:max-w-md md:max-w-lg bg-base-200 p-4 sm:p-6 md:p-8 rounded-lg shadow-md"
       >
         <input
           type="text"
@@ -112,6 +111,7 @@ const AddBook = () => {
           value={formData.summary}
           onChange={handleChange}
           className="textarea textarea-bordered w-full"
+          rows="4"
           required
         ></textarea>
         <input
@@ -123,7 +123,7 @@ const AddBook = () => {
           className="input input-bordered w-full"
           required
         />
-        <button type="submit" className="btn btn-primary mt-2">
+        <button type="submit" className="btn btn-primary mt-2 w-full">
           Add Book
         </button>
       </form>

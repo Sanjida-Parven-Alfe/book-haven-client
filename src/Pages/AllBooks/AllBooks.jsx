@@ -21,13 +21,13 @@ const AllBooks = () => {
   }
 
   return (
-    <div className="px-20 pb-20 bg-base-100 text-base-content min-h-screen">
-      <p className="text-center font-bold text-4xl py-10 border-b-2 pb-2">
+    <div className="px-4 sm:px-10 md:px-20 pb-10 md:pb-20 bg-base-100 text-base-content min-h-screen">
+      <p className="text-center font-bold text-3xl sm:text-4xl py-6 sm:py-10 border-b-2 pb-2">
         All Books
       </p>
 
-      <div className="flex items-center justify-end my-10 gap-2">
-        <label className="font-semibold">Sort by Rating:</label>
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-end my-6 md:my-10 gap-2">
+        <label className="font-semibold mb-2 md:mb-0">Sort by Rating:</label>
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
@@ -39,12 +39,12 @@ const AllBooks = () => {
         </select>
       </div>
 
-      <div className="grid grid-cols-3 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
         {sortedBooks.map((book) => (
           <BookCard key={book._id} book={book}>
             <Link
               to={`/book-details/${book._id}`}
-              className="btn btn-primary mt-2"
+              className="btn btn-primary mt-2 w-full text-center"
             >
               View Details
             </Link>

@@ -1,12 +1,12 @@
 import React from "react";
-import logo from "../assets/Book_Store_Logo.png"; // তোমার logo path
+import logo from "../assets/Book_Store_Logo.png";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-gray-100 pt-10">
-      <div className=" px-20 pt-12 flex flex-wrap justify-between gap-4">
+      <div className="px-5 md:px-20 pt-6 md:pt-12 grid grid-cols-2 md:flex md:flex-wrap justify-between gap-4">
         {/* Logo & Address */}
-        <div className="flex flex-col items-center md:items-start border-r-2 border-gray-300 pr-20">
+        <div className="flex flex-col items-center md:items-start md:border-r-2 md:border-gray-300 pr-2 md:pr-20">
           <div className="flex justify-center items-center gap-4">
             <img src={logo} alt="Book Haven" className="w-20 h-20 mb-4" />
             <p className="text-xl md:text-4xl font-bold text-gray-200">
@@ -22,7 +22,7 @@ const Footer = () => {
         {/* Need Help */}
         <div className="flex flex-col items-center md:items-start ">
           <h3 className="font-bold mb-2 border-b-1 border-gray-300 pb-2">Need Help</h3>
-          <p className="mb-1 text-2xl text-purple-400 font-bold">+880123-4567-890</p>
+          <p className="mb-1 text-lg md:text-2xl text-purple-400 font-bold">+880123-4567-890</p>
           <p className="mb-1 text-gray-400">Monday – Friday: 9:00-20:00</p>
           <p className="mb-1 text-gray-400">Saturday: 11:00 – 15:00</p>
           <p>contact@example.com</p>
@@ -126,8 +126,8 @@ const Footer = () => {
       </div>
 
       <div className="bg-gray-900 border-t border-gray-500 mt-8">
-        <div className="px-20 py-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-200">
+        <div className="px-10 md:px-20 pb-4 py-4 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm text-gray-200 pb-4 md:pb-0">
             Copyright © 2025 <span className="text-purple-400">Book Haven</span>. All rights reserved.
           </p>
           <div className="flex items-center gap-6">

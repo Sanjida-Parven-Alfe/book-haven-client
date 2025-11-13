@@ -52,9 +52,9 @@ const MyBooks = () => {
   }
 
   return (
-    <div className="p-10 bg-base-100 text-base-content min-h-screen">
+    <div className="px-2 pt-4 md:p-10 bg-base-100 text-base-content min-h-screen">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl font-bold mb-6 text-center">📚 My Books</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">My Books</h1>
 
       {myBooks.length === 0 ? (
         <p className="text-center mt-10">You haven’t added any books yet.</p>
@@ -77,7 +77,7 @@ const MyBooks = () => {
                   <td className="border p-2">{book.author}</td>
                   <td className="border p-2">{book.genre}</td>
                   <td className="border p-2">{book.rating}</td>
-                  <td className="border p-2 flex justify-center gap-2">
+                  <td className="border p-2 flex justify-center flex-col md:flex-row gap-2">
                     <Link
                       to={`/update-book/${book._id}`}
                       className="btn btn-sm btn-primary"

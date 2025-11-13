@@ -39,7 +39,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div className="px-20 pb-20 pt-10 text-base-content bg-base-100 min-h-screen">
+    <div className="px-10 md:px-20 pb-10 md:pb-20 pt-10 md:pt-10 text-base-content bg-base-100 min-h-screen">
       {/* Book Details */}
       <div className="flex flex-col md:flex-row gap-10 bg-base-200 shadow-lg rounded-lg p-8">
         <img
