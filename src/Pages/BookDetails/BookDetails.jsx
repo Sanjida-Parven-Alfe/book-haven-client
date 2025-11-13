@@ -1,23 +1,98 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+// src/Pages/BookDetails/BookDetails.jsx
+import React, { useState, useEffect } from "react";
+import { useLoaderData } from "react-router";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../../firebase/firebase.config";
+import { collection, addDoc, query, onSnapshot, orderBy } from "firebase/firestore";
 
 const BookDetails = () => {
-  const location = useLocation();
-  const { book } = location.state || {};
+  const book = useLoaderData();
+  const [user] = useAuthState(auth);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
 
-  if (!book) return <p className="text-center mt-10">No book details available.</p>;
+  // Fetch comments in real-time
+  useEffect(() => {
+    const q = query(collection(db, "comments"), orderBy("createdAt", "asc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const allComments = snapshot.docs
+        .filter(doc => doc.data().bookId === book._id)
+        .map(doc => ({ id: doc.id, ...doc.data() }));
+      setComments(allComments);
+    });
+
+    return () => unsubscribe();
+  }, [book._id]);
+
+  // Handle adding a comment
+  const handleAddComment = async (e) => {
+    e.preventDefault();
+    if (!comment.trim()) return;
+
+    await addDoc(collection(db, "comments"), {
+      bookId: book._id,
+      userName: user.displayName || "Anonymous",
+      userPhoto: user.photoURL || "",
+      comment: comment,
+      createdAt: new Date()
+    });
+    setComment("");
+  };
 
   return (
-    <div className="px-20 pb-20 mt-10">
+    <div className="px-20 pb-20 mt-10 text-black">
+      {/* Book Details */}
       <div className="flex flex-col md:flex-row gap-10 bg-white shadow-lg rounded-lg p-8">
-        <img src={book.image} alt={book.title} className="w-full md:w-64 h-auto rounded-lg" />
+        <img
+          src={book.coverImage} // coverImage ঠিক করা হয়েছে
+          alt={book.title}
+          className="w-full md:w-64 h-auto rounded-lg"
+        />
         <div className="flex-1">
           <h1 className="text-4xl font-bold mb-2">{book.title}</h1>
           <p className="text-lg mb-1"><strong>Author:</strong> {book.author}</p>
-          <p className="text-lg mb-1"><strong>Category:</strong> {book.category}</p>
-          <p className="text-lg mb-1"><strong>Price:</strong> ${book.price}</p>
-          <p className="mt-4 text-md">{book.description}</p>
+          <p className="text-lg mb-1"><strong>Genre:</strong> {book.genre}</p>
+          <p className="text-lg mb-1"><strong>Rating:</strong> {book.rating}</p>
+          <p className="mt-4 text-md">{book.summary}</p>
         </div>
+      </div>
+
+      {/* Comments Section */}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4 text-black">Comments</h2>
+
+        {/* Comment Form */}
+        {user && (
+          <form onSubmit={handleAddComment} className="flex gap-2 mb-6">
+            <input
+              type="text"
+              placeholder="Add your comment"
+              className="border p-2 flex-1 rounded text-black"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button type="submit" className="btn btn-primary">Post</button>
+          </form>
+        )}
+
+        {/* Comments List */}
+        {comments.length === 0 ? (
+          <p className="text-black">No comments yet. Be the first to comment!</p>
+        ) : (
+          comments.map(c => (
+            <div key={c.id} className="flex items-start gap-3 mb-4">
+              <img
+                src={c.userPhoto || "https://via.placeholder.com/40"}
+                alt={c.userName}
+                className="w-10 h-10 rounded-full"
+              />
+              <div>
+                <p className="font-bold text-black">{c.userName}</p>
+                <p className="text-black">{c.comment}</p>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

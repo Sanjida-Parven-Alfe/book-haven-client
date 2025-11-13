@@ -13,10 +13,10 @@ const AllBooks = () => {
       <div className="grid grid-cols-3 lg:grid-cols-4 gap-10">
         {data.map((book) => (
           <BookCard key={book._id} book={book}>
+            // Inside your map for books
             <Link
-              to="/book-details"
-              state={{ book }}
-              className="mt-3 inline-block text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 transition"
+              to={`/book-details/${book._id}`}
+              className="btn btn-primary mt-2"
             >
               View Details
             </Link>

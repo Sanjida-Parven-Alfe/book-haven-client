@@ -42,12 +42,16 @@ export const router = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "/book-details",
+        path: "/book-details/:id",
         element: (
           <PrivateRoute>
             <BookDetails />
           </PrivateRoute>
         ),
+        loader: async ({ params }) =>
+          fetch(`http://localhost:3000/Books/${params.id}`).then((res) =>
+            res.json()
+          ),
       },
       {
         path: "/profile",
