@@ -10,7 +10,7 @@ const MyBooks = () => {
   const [myBooks, setMyBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch user's books
+  // Fetch user's books
   useEffect(() => {
     if (user?.email) {
       axios
@@ -29,7 +29,7 @@ const MyBooks = () => {
     }
   }, [user]);
 
-  // ✅ Handle Delete
+  // Handle Delete
   const handleDelete = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this book?");
     if (!confirmDelete) return;
@@ -43,31 +43,26 @@ const MyBooks = () => {
       .catch(() => toast.error("❌ Failed to delete book!"));
   };
 
-  // ✅ Loading state
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-lg font-semibold text-black">
+      <div className="flex justify-center items-center h-screen text-lg font-semibold">
         Loading your books...
       </div>
     );
   }
 
   return (
-    <div className="p-10">
+    <div className="p-10 bg-base-100 text-base-content min-h-screen">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl font-bold mb-6 text-black text-center">
-        📚 My Books
-      </h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">📚 My Books</h1>
 
       {myBooks.length === 0 ? (
-        <p className="text-center text-black mt-10">
-          You haven’t added any books yet.
-        </p>
+        <p className="text-center mt-10">You haven’t added any books yet.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse border border-gray-300 rounded-lg overflow-hidden shadow-sm">
-            <thead>
-              <tr className="bg-green-100 text-black">
+          <table className="table w-full border border-base-300 rounded-lg shadow">
+            <thead className="bg-base-200">
+              <tr>
                 <th className="border p-2">Title</th>
                 <th className="border p-2">Author</th>
                 <th className="border p-2">Genre</th>
@@ -77,24 +72,21 @@ const MyBooks = () => {
             </thead>
             <tbody>
               {myBooks.map((book) => (
-                <tr
-                  key={book._id}
-                  className="text-center text-black hover:bg-gray-50 transition duration-150"
-                >
+                <tr key={book._id} className="text-center hover:bg-base-300 transition">
                   <td className="border p-2">{book.title}</td>
                   <td className="border p-2">{book.author}</td>
                   <td className="border p-2">{book.genre}</td>
                   <td className="border p-2">{book.rating}</td>
-                  <td className="border p-2">
+                  <td className="border p-2 flex justify-center gap-2">
                     <Link
                       to={`/update-book/${book._id}`}
-                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded mr-2 transition"
+                      className="btn btn-sm btn-primary"
                     >
                       Update
                     </Link>
                     <button
                       onClick={() => handleDelete(book._id)}
-                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition"
+                      className="btn btn-sm btn-error"
                     >
                       Delete
                     </button>

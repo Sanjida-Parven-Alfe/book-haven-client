@@ -16,7 +16,7 @@ const UpdateBook = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch book data by ID
+  // Fetch book data by ID
   useEffect(() => {
     axios
       .get(`http://localhost:3000/Books/${id}`)
@@ -30,7 +30,7 @@ const UpdateBook = () => {
       });
   }, [id]);
 
-  // ✅ Handle Update Form Submission
+  // Handle Update Form Submission
   const handleUpdate = (e) => {
     e.preventDefault();
 
@@ -45,29 +45,27 @@ const UpdateBook = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-lg font-semibold text-black">
+      <div className="flex justify-center items-center h-screen text-lg font-semibold">
         Loading book details...
       </div>
     );
   }
 
   return (
-    <div className="p-10">
+    <div className="p-10 bg-base-100 text-base-content min-h-screen">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl font-bold text-center mb-6 text-black">
-        ✏️ Update Book
-      </h1>
+      <h1 className="text-3xl font-bold text-center mb-6">✏️ Update Book</h1>
 
       <form
         onSubmit={handleUpdate}
-        className="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-md space-y-4"
+        className="max-w-lg mx-auto bg-base-200 p-8 rounded-2xl shadow-md space-y-4"
       >
         <input
           type="text"
           placeholder="Title"
           value={book.title}
           onChange={(e) => setBook({ ...book, title: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="input input-bordered w-full"
           required
         />
 
@@ -76,7 +74,7 @@ const UpdateBook = () => {
           placeholder="Author"
           value={book.author}
           onChange={(e) => setBook({ ...book, author: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="input input-bordered w-full"
           required
         />
 
@@ -85,7 +83,7 @@ const UpdateBook = () => {
           placeholder="Genre"
           value={book.genre}
           onChange={(e) => setBook({ ...book, genre: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="input input-bordered w-full"
           required
         />
 
@@ -94,7 +92,7 @@ const UpdateBook = () => {
           placeholder="Rating"
           value={book.rating}
           onChange={(e) => setBook({ ...book, rating: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="input input-bordered w-full"
           required
         />
 
@@ -102,32 +100,30 @@ const UpdateBook = () => {
           placeholder="Summary"
           value={book.summary}
           onChange={(e) => setBook({ ...book, summary: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="textarea textarea-bordered w-full"
           rows="4"
           required
         ></textarea>
 
-        {/* ✅ Cover Image URL */}
         <input
           type="text"
           placeholder="Cover Image URL"
           value={book.coverImage}
           onChange={(e) => setBook({ ...book, coverImage: e.target.value })}
-          className="border border-gray-300 rounded-lg p-2 w-full focus:ring-2 focus:ring-black text-black"
+          className="input input-bordered w-full"
         />
 
-        {/* ✅ Preview Cover Image */}
         {book.coverImage && (
           <img
             src={book.coverImage}
             alt="Book Cover"
-            className="w-32 h-40 object-cover my-2 border"
+            className="w-32 h-40 object-cover my-2 border rounded"
           />
         )}
 
         <button
           type="submit"
-          className="bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-2 rounded-lg w-full transition duration-200"
+          className="btn btn-success w-full"
         >
           ✅ Update Book
         </button>

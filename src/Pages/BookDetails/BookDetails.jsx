@@ -1,4 +1,3 @@
-// src/Pages/BookDetails/BookDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useLoaderData } from "react-router";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -40,13 +39,13 @@ const BookDetails = () => {
   };
 
   return (
-    <div className="px-20 pb-20 mt-10 text-black">
+    <div className="px-20 pb-20 pt-10 text-base-content bg-base-100 min-h-screen">
       {/* Book Details */}
-      <div className="flex flex-col md:flex-row gap-10 bg-white shadow-lg rounded-lg p-8">
+      <div className="flex flex-col md:flex-row gap-10 bg-base-200 shadow-lg rounded-lg p-8">
         <img
-          src={book.coverImage} // coverImage ঠিক করা হয়েছে
+          src={book.coverImage}
           alt={book.title}
-          className="w-full md:w-64 h-auto rounded-lg"
+          className="w-full md:w-64 h-auto rounded-lg object-cover"
         />
         <div className="flex-1">
           <h1 className="text-4xl font-bold mb-2">{book.title}</h1>
@@ -59,7 +58,7 @@ const BookDetails = () => {
 
       {/* Comments Section */}
       <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4 text-black">Comments</h2>
+        <h2 className="text-2xl font-bold mb-4">Comments</h2>
 
         {/* Comment Form */}
         {user && (
@@ -67,7 +66,7 @@ const BookDetails = () => {
             <input
               type="text"
               placeholder="Add your comment"
-              className="border p-2 flex-1 rounded text-black"
+              className="input input-bordered flex-1"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />
@@ -77,18 +76,18 @@ const BookDetails = () => {
 
         {/* Comments List */}
         {comments.length === 0 ? (
-          <p className="text-black">No comments yet. Be the first to comment!</p>
+          <p>No comments yet. Be the first to comment!</p>
         ) : (
           comments.map(c => (
-            <div key={c.id} className="flex items-start gap-3 mb-4">
+            <div key={c.id} className="flex items-start gap-3 mb-4 bg-base-200 p-3 rounded-lg shadow-sm">
               <img
                 src={c.userPhoto || "https://via.placeholder.com/40"}
                 alt={c.userName}
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10 rounded-full object-cover"
               />
               <div>
-                <p className="font-bold text-black">{c.userName}</p>
-                <p className="text-black">{c.comment}</p>
+                <p className="font-bold">{c.userName}</p>
+                <p>{c.comment}</p>
               </div>
             </div>
           ))

@@ -27,7 +27,7 @@ const Home = () => {
   }
 
   return (
-    <div className="home-page">
+    <div className="home-page bg-base-100 text-base-content">
       {/* Banner Section */}
       <section className="banner bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white h-[500px] flex flex-col justify-center items-center relative overflow-hidden">
         <motion.h1
@@ -76,7 +76,7 @@ const Home = () => {
       <section className="latest-books py-16 px-6 md:px-16">
         <h2
           data-aos="zoom-in-up"
-          className="text-3xl text-black font-bold text-center mb-10"
+          className="text-3xl font-bold text-center mb-10"
         >
           Latest Books
         </h2>
@@ -103,40 +103,40 @@ const Home = () => {
             ))}
           </Swiper>
         ) : (
-          <p className="text-center text-gray-500">No books available yet.</p>
+          <p className="text-center text-base-content/70">No books available yet.</p>
         )}
       </section>
 
       {/* Top Genres Section */}
       <section
-        className="top-genres py-16 px-6 md:px-16 bg-gray-100"
+        className="top-genres py-16 px-6 md:px-16 bg-base-200"
         data-aos="zoom-in-up"
       >
-        <h2 className="text-3xl font-bold text-center text-black mb-10">
+        <h2 className="text-3xl font-bold text-center mb-10">
           Top Genres
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="genre-card text-black p-4 bg-white rounded shadow hover:scale-105 transition text-center">
+          <div className="genre-card p-4 bg-base-100 rounded shadow hover:scale-105 transition text-center">
             Fantasy
           </div>
-          <div className="genre-card text-black p-4 bg-white rounded shadow hover:scale-105 transition text-center">
+          <div className="genre-card p-4 bg-base-100 rounded shadow hover:scale-105 transition text-center">
             Mystery
           </div>
-          <div className="genre-card text-black p-4 bg-white rounded shadow hover:scale-105 transition text-center">
+          <div className="genre-card p-4 bg-base-100 rounded shadow hover:scale-105 transition text-center">
             Romance
           </div>
-          <div className="genre-card text-black p-4 bg-white rounded shadow hover:scale-105 transition text-center">
+          <div className="genre-card p-4 bg-base-100 rounded shadow hover:scale-105 transition text-center">
             Non-Fiction
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="about py-16 px-6 md:px-16" data-aos="zoom-in-up">
-        <h2 className="text-3xl font-bold text-center mb-10 text-black">
+      <section className="about py-16 px-6 md:px-16">
+        <h2 className="text-3xl font-bold text-center mb-10">
           About The Book Haven
         </h2>
-        <p className="text-center max-w-3xl mx-auto text-gray-700">
+        <p className="text-center max-w-3xl mx-auto text-base-content/70">
           The Book Haven is your ultimate digital library. Add, explore, and
           manage books seamlessly with an intuitive UI and dynamic experience.
         </p>

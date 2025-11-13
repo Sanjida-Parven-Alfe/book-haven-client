@@ -59,13 +59,13 @@ const AddBook = () => {
   };
 
   return (
-    <div className="px-20 pb-20 mt-10 flex flex-col justify-center items-center">
+    <div className="px-20 pb-20 pt-10 flex flex-col justify-center items-center bg-base-100 text-base-content">
       <Toaster position="top-right" reverseOrder={false} />
-      <h1 className="text-3xl text-center text-black font-bold mb-6">Add a New Book</h1>
+      <h1 className="text-3xl text-center font-bold mb-6">Add a New Book</h1>
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 w-[600px] bg-white p-6 rounded-lg shadow-md"
+        className="flex flex-col gap-4 w-[600px] bg-base-200 p-6 rounded-lg shadow-md"
       >
         <input
           type="text"
@@ -73,7 +73,7 @@ const AddBook = () => {
           placeholder="Title"
           value={formData.title}
           onChange={handleChange}
-          className="border p-2 rounded text-black"
+          className="input input-bordered w-full"
           required
         />
         <input
@@ -82,7 +82,7 @@ const AddBook = () => {
           placeholder="Author"
           value={formData.author}
           onChange={handleChange}
-          className="border p-2 rounded text-black"
+          className="input input-bordered w-full"
           required
         />
         <input
@@ -91,7 +91,7 @@ const AddBook = () => {
           placeholder="Genre"
           value={formData.genre}
           onChange={handleChange}
-          className="border p-2 rounded text-black"
+          className="input input-bordered w-full"
           required
         />
         <input
@@ -103,7 +103,7 @@ const AddBook = () => {
           step="0.1"
           min="0"
           max="5"
-          className="border p-2 rounded text-black"
+          className="input input-bordered w-full"
           required
         />
         <textarea
@@ -111,7 +111,7 @@ const AddBook = () => {
           placeholder="Summary"
           value={formData.summary}
           onChange={handleChange}
-          className="border p-2 rounded text-black"
+          className="textarea textarea-bordered w-full"
           required
         ></textarea>
         <input
@@ -120,7 +120,7 @@ const AddBook = () => {
           placeholder="Cover Image URL"
           value={formData.coverImage}
           onChange={handleChange}
-          className="border p-2 rounded text-black"
+          className="input input-bordered w-full"
           required
         />
         <button type="submit" className="btn btn-primary mt-2">

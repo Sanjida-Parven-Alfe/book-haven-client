@@ -1,10 +1,28 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+
+  themes: light --default, dark --prefersdark;
+}
+
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 
 html, body, #root {
   background-color: white;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100%;
 }
+
+
+:where([data-theme="dark"]) html,
+:where([data-theme="dark"]) body,
+:where([data-theme="dark"]) #root {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
 
 @keyframes scroll {
   0% { transform: translateX(0%); }
@@ -14,4 +32,3 @@ html, body, #root {
 .animate-scroll {
   animation: scroll 20s linear infinite;
 }
-
