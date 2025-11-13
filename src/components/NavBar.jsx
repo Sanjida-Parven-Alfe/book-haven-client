@@ -19,7 +19,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar flex justify-between shadow-md px-none md:px-20">
+    <div className="navbar flex justify-between shadow-md px-none md:px-20 sticky top-0 left-0 w-full z-50 bg-white">
       {/* Navbar Start */}
       <div className="navbar-start w-auto">
         <div className="dropdown">
