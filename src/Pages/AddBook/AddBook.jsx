@@ -1,11 +1,134 @@
-import React from 'react';
+// src/Pages/AddBook/AddBook.jsx
+import React, { useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.config";
+import toast, { Toaster } from "react-hot-toast";
 
 const AddBook = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  const [user] = useAuthState(auth);
+  const [formData, setFormData] = useState({
+    title: "",
+    author: "",
+    genre: "",
+    rating: "",
+    summary: "",
+    coverImage: "",
+  });
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) return toast.error("You must be logged in to add a book.");
+
+    const bookData = {
+      ...formData,
+      userEmail: user.email,
+      userName: user.displayName || "Anonymous",
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/Books", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookData),
+      });
+
+      if (res.ok) {
+        toast.success("Book added successfully!");
+        setFormData({
+          title: "",
+          author: "",
+          genre: "",
+          rating: "",
+          summary: "",
+          coverImage: "",
+        });
+      } else {
+        toast.error("Failed to add book.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong!");
+    }
+  };
+
+  return (
+    <div className="px-20 pb-20 mt-10 flex flex-col justify-center items-center">
+      <Toaster position="top-right" reverseOrder={false} />
+      <h1 className="text-3xl text-center text-black font-bold mb-6">Add a New Book</h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 w-[600px] bg-white p-6 rounded-lg shadow-md"
+      >
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+          className="border p-2 rounded text-black"
+          required
+        />
+        <input
+          type="text"
+          name="author"
+          placeholder="Author"
+          value={formData.author}
+          onChange={handleChange}
+          className="border p-2 rounded text-black"
+          required
+        />
+        <input
+          type="text"
+          name="genre"
+          placeholder="Genre"
+          value={formData.genre}
+          onChange={handleChange}
+          className="border p-2 rounded text-black"
+          required
+        />
+        <input
+          type="number"
+          name="rating"
+          placeholder="Rating"
+          value={formData.rating}
+          onChange={handleChange}
+          step="0.1"
+          min="0"
+          max="5"
+          className="border p-2 rounded text-black"
+          required
+        />
+        <textarea
+          name="summary"
+          placeholder="Summary"
+          value={formData.summary}
+          onChange={handleChange}
+          className="border p-2 rounded text-black"
+          required
+        ></textarea>
+        <input
+          type="text"
+          name="coverImage"
+          placeholder="Cover Image URL"
+          value={formData.coverImage}
+          onChange={handleChange}
+          className="border p-2 rounded text-black"
+          required
+        />
+        <button type="submit" className="btn btn-primary mt-2">
+          Add Book
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default AddBook;
