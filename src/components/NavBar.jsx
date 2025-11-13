@@ -91,7 +91,7 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            {/* ✅ Theme toggle for md and smaller */}
+            {/* Theme toggle for md and smaller */}
             <li className="mt-2 flex justify-center">
               <label className="flex cursor-pointer gap-2 items-center">
                 <svg
@@ -190,7 +190,7 @@ const NavBar = () => {
 
       {/* Navbar End */}
       <div className="navbar-end w-auto flex items-center gap-3 md:gap-5">
-        {/* Theme Toggle - only show on lg+ */}
+        {/* Theme Toggle - only show on large device */}
         <label className="hidden lg:flex cursor-pointer gap-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"

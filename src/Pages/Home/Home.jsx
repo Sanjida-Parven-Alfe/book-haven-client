@@ -11,17 +11,16 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import BookCard from "../../components/BookCard";
 import ScrollStats from "../../components/ScrollStats";
-import Loading from "../../Pages/Loading/Loading"; // ✅ Import spinner
+import Loading from "../../Pages/Loading/Loading"; 
 
 const Home = () => {
-  const data = useLoaderData() || []; // fallback empty array
-  const navigation = useNavigation(); // ✅ check loader state
+  const data = useLoaderData() || []; 
+  const navigation = useNavigation(); 
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
   }, []);
 
-  // ✅ Show spinner while loader is fetching data
   if (navigation.state === "loading") {
     return <Loading />;
   }
@@ -30,7 +29,6 @@ const Home = () => {
     <div className="home-page bg-base-100 text-base-content">
       {/* Banner Section */}
       <section className="banner bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white h-[500px] flex flex-col justify-center items-center relative overflow-hidden">
-
         <motion.h1
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -104,7 +102,9 @@ const Home = () => {
             ))}
           </Swiper>
         ) : (
-          <p className="text-center text-base-content/70">No books available yet.</p>
+          <p className="text-center text-base-content/70">
+            No books available yet.
+          </p>
         )}
       </section>
 
@@ -113,9 +113,7 @@ const Home = () => {
         className="top-genres py-16 px-6 md:px-16 bg-base-200"
         data-aos="zoom-in-up"
       >
-        <h2 className="text-3xl font-bold text-center mb-10">
-          Top Genres
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-10">Top Genres</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="genre-card p-4 bg-base-100 rounded shadow hover:scale-105 transition text-center">
             Fantasy
@@ -134,12 +132,18 @@ const Home = () => {
 
       {/* About Section */}
       <section className="about py-16 px-6 md:px-16">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 data-aos="zoom-in-up" className="text-3xl font-bold text-center mb-10">
           About The Book Haven
         </h2>
-        <p className="text-center max-w-3xl mx-auto text-base-content/70">
-          The Book Haven is your ultimate digital library. Add, explore, and
-          manage books seamlessly with an intuitive UI and dynamic experience.
+        <p data-aos="zoom-in-up" className="text-center max-w-3xl mx-auto text-base-content/70">
+          Welcome to The Book Haven, your ultimate destination for all things
+          literary! Our platform is dedicated to connecting passionate readers
+          with an extensive collection of books from various genres, authors,
+          and publishers. <br /> At The Book Haven, we believe that books have the
+          power to inspire, educate, and entertain. Whether you are a lifelong
+          reader, a student, or simply looking for your next great read, our
+          carefully curated collection ensures that there is something for
+          everyone.
         </p>
       </section>
     </div>

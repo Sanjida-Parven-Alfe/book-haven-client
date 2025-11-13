@@ -10,7 +10,7 @@ const MyBooks = () => {
   const [myBooks, setMyBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user's books
+
   useEffect(() => {
     if (user?.email) {
       axios

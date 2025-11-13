@@ -10,14 +10,14 @@ import BookDetails from "../Pages/BookDetails/BookDetails";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
-import Loading from "../Pages/Loading/Loading"; // Loading spinner
-import Error from "../Pages/Error/Error"; // Custom 404 page
+import Loading from "../Pages/Loading/Loading"; 
+import Error from "../Pages/Error/Error"; 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <Error />, // 404 page
+    errorElement: <Error />, 
     children: [
       {
         index: true,

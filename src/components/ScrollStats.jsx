@@ -1,4 +1,3 @@
-// ScrollStats.jsx
 import React from "react";
 
 const stats = [

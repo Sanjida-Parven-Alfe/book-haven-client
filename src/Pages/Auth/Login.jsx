@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { auth } from "../../firebase/firebase.config"; // path ঠিক রাখো
+import { auth } from "../../firebase/firebase.config";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
