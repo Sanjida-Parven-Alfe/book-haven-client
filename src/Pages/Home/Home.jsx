@@ -76,7 +76,7 @@ const Home = () => {
           <Swiper
             data-aos="zoom-in-up"
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={20}
+            spaceBetween={5}
             slidesPerView={1}
             navigation
             pagination={{ clickable: true }}
@@ -87,9 +87,9 @@ const Home = () => {
               1024: { slidesPerView: 3 },
             }}
           >
-            {data.slice(0, 4).map((book) => (
+            {data.slice(0, 5).map((book) => (
               <SwiperSlide key={book._id}>
-                <BookCard book={book} />
+                <BookCard book={book}/>
               </SwiperSlide>
             ))}
           </Swiper>
