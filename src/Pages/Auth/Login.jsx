@@ -43,26 +43,26 @@ const Login = () => {
 
           {/* Email Input */}
           <div>
-            <label className="block text-sm mb-1">Email</label>
+            <label className="block text-bl text-sm mb-1">Email</label>
             <input
               type="email"
               name="email"
               ref={emailRef}
               placeholder="Your Email"
-              className="input input-bordered w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800"
+              className="input input-bordered border-gray-300 w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800"
               autoComplete="off"
             />
           </div>
 
           {/* Password Input with show/hide */}
           <div className="relative">
-            <label className="block text-sm mb-1">Password</label>
+            <label className="block text-black text-sm mb-1">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
               ref={passwordRef}
               placeholder="••••••••"
-              className="input input-bordered w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800 pr-10"
+              className="input input-bordered border-gray-300 w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800 pr-10"
               autoComplete="new-password"
             />
             <button
@@ -80,7 +80,7 @@ const Login = () => {
           {/* Login Button */}
           <button
             type="submit"
-            className="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700 w-full"
+            className="bg-indigo-800 text-white p-2 rounded hover:bg-indigo-500 w-full"
           >
             Login
           </button>

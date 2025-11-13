@@ -3,7 +3,7 @@ import logo from "../assets/Book_Store_Logo.png"; // তোমার logo path
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-gray-100 mt-10">
+    <footer className="bg-gray-800 text-gray-100 pt-10">
       <div className=" px-20 pt-12 flex flex-wrap justify-between gap-4">
         {/* Logo & Address */}
         <div className="flex flex-col items-center md:items-start border-r-2 border-gray-300 pr-20">

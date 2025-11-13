@@ -2,28 +2,45 @@ import React, { useState } from "react";
 import { auth } from "../../firebase/firebase.config";
 import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Registration = () => {
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
 
   const googleProvider = new GoogleAuthProvider();
 
-  // Email & Password Registration
+  const isValidPassword = (password) => {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasLength = password.length >= 6;
+    return hasUppercase && hasLowercase && hasLength;
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!isValidPassword(password)) {
+      setPasswordError("Password must be at least 6 characters with uppercase and lowercase letters.");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: name });
-      navigate("/");
+      await updateProfile(userCredential.user, { displayName: name, photoURL: photoURL });
+      navigate("/"); // redirect to home
     } catch (error) {
       alert(error.message);
     }
   };
 
-  // ✅ Google Sign-in
   const handleGoogleSignin = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -35,15 +52,76 @@ const Registration = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
-      <form onSubmit={handleRegister} className="bg-white p-10 rounded shadow-md flex flex-col gap-4 w-96">
-        <h2 className="text-2xl text-black font-bold text-center">Register</h2>
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required className="border p-2 rounded" />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="border p-2 rounded" />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="border p-2 rounded" />
+      <form onSubmit={handleRegister} className="w-full max-w-md backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl p-8 space-y-5">
+        <h2 className="text-2xl font-semibold mb-4 text-center text-amber-950">Register</h2>
 
-        <button type="submit" className="bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700">Register</button>
+        <div>
+          <label className="block text-sm text-black font-medium mb-1">Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoComplete="off"
+            className="input input-bordered border-gray-300 w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800"
+            required
+          />
+        </div>
 
-        {/* Google Button */}
+        <div>
+          <label className="block text-sm text-black font-medium mb-1">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="example@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
+            className="input input-bordered border-gray-300 w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800"
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-black font-medium mb-1">Photo URL</label>
+          <input
+            type="text"
+            name="photo"
+            placeholder="Your photo URL here"
+            value={photoURL}
+            onChange={(e) => setPhotoURL(e.target.value)}
+            autoComplete="off"
+            className="input input-bordered w-full border-gray-300 bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800"
+          />
+        </div>
+
+        <div className="relative">
+          <label className="block text-sm text-black font-medium mb-1">Password</label>
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="new-password"
+            className="input input-bordered border-gray-300 w-full bg-white/20 text-black placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-amber-800 pr-10"
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 pt-[20px] top-1/2 -translate-y-1/2 text-indigo-600 hover:text-indigo-700 z-20"
+          >
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
+          </button>
+          {passwordError && <p className="text-red-600 text-sm mt-1">{passwordError}</p>}
+        </div>
+
+        <button type="submit" className="w-full bg-indigo-800 text-white p-2 rounded hover:bg-indigo-500 transition">
+          Register
+        </button>
+
         <button
           type="button"
           onClick={handleGoogleSignin}
