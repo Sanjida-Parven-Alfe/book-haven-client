@@ -10,21 +10,31 @@ import BookDetails from "../Pages/BookDetails/BookDetails";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
+import Loading from "../Pages/Loading/Loading"; // Loading spinner
+import Error from "../Pages/Error/Error"; // Custom 404 page
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <Error />, // 404 page
     children: [
       {
         index: true,
         element: <Home />,
-        loader: () => fetch("http://localhost:3000/Books"),
+        loader: async () => {
+          // Loading spinner while fetching
+          const response = await fetch("http://localhost:3000/Books");
+          return response.json();
+        },
       },
       {
         path: "/all-books",
         element: <AllBooks />,
-        loader: () => fetch("http://localhost:3000/Books"),
+        loader: async () => {
+          const response = await fetch("http://localhost:3000/Books");
+          return response.json();
+        },
       },
       {
         path: "/add-book",
@@ -65,10 +75,10 @@ export const router = createBrowserRouter([
             <BookDetails />
           </PrivateRoute>
         ),
-        loader: async ({ params }) =>
-          fetch(`http://localhost:3000/Books/${params.id}`).then((res) =>
-            res.json()
-          ),
+        loader: async ({ params }) => {
+          const response = await fetch(`http://localhost:3000/Books/${params.id}`);
+          return response.json();
+        },
       },
       {
         path: "/profile",

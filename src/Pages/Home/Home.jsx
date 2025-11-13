@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -11,13 +11,20 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import BookCard from "../../components/BookCard";
 import ScrollStats from "../../components/ScrollStats";
+import Loading from "../../Pages/Loading/Loading"; // ✅ Import spinner
 
 const Home = () => {
-  const data = useLoaderData() || []; // ✅ fallback empty array
+  const data = useLoaderData() || []; // fallback empty array
+  const navigation = useNavigation(); // ✅ check loader state
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false });
   }, []);
+
+  // ✅ Show spinner while loader is fetching data
+  if (navigation.state === "loading") {
+    return <Loading />;
+  }
 
   return (
     <div className="home-page">
@@ -74,7 +81,6 @@ const Home = () => {
           Latest Books
         </h2>
 
-        {/* ✅ Check if data exists */}
         {data.length > 0 ? (
           <Swiper
             data-aos="zoom-in-up"
@@ -92,7 +98,7 @@ const Home = () => {
           >
             {data.slice(0, 5).map((book) => (
               <SwiperSlide key={book._id}>
-                <BookCard book={book}/>
+                <BookCard book={book} />
               </SwiperSlide>
             ))}
           </Swiper>
