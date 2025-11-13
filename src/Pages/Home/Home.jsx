@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import BookCard from "../../components/BookCard";
+import ScrollStats from "../../components/ScrollStats";
 
 const Home = () => {
   const data = useLoaderData() || []; // ✅ fallback empty array
@@ -61,6 +62,8 @@ const Home = () => {
           </Link>
         </motion.div>
       </section>
+
+      <ScrollStats />
 
       {/* Latest Books Section */}
       <section className="latest-books py-16 px-6 md:px-16">
