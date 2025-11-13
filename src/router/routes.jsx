@@ -5,41 +5,54 @@ import AllBooks from "../Pages/AllBooks/AllBooks";
 import AddBook from "../Pages/AddBook/AddBook";
 import MyBooks from "../Pages/MyBooks/MyBooks";
 import Login from "../Pages/Auth/Login";
-import Registration from "../Pages/Auth/Registration"
+import Registration from "../Pages/Auth/Registration";
+import BookDetails from "../Pages/BookDetails/BookDetails";
+import Profile from "../Pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <MainLayout/>,
-        children: [
-            {
-                index: true,
-                element: <Home/>,
-                loader: () => fetch('http://localhost:3000/Books')
-
-            },
-            {
-                path: "/all-books",
-                element: <AllBooks/>,
-                loader: () => fetch('http://localhost:3000/Books')
-            },
-            {
-                path: "/add-book",
-                element: <AddBook/>,
-            },
-            {
-                path: "/my-books",
-                element: <MyBooks/>,
-            },
-            {
-                path: "/login",
-                element: <Login/>,
-            },
-            {
-                path: "/register",
-                element: <Registration/>,
-            }
-        ]
-
-    }
-])
+  {
+    path: "/",
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+        loader: () => fetch("http://localhost:3000/Books"),
+      },
+      {
+        path: "/all-books",
+        element: <AllBooks />,
+        loader: () => fetch("http://localhost:3000/Books"),
+      },
+      {
+        path: "/add-book",
+        element: <AddBook />,
+      },
+      {
+        path: "/my-books",
+        element: <MyBooks />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Registration />,
+      },
+      {
+        path: "/book-details",
+        element: (
+          <PrivateRoute>
+            <BookDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+]);
