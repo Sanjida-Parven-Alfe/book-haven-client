@@ -10,31 +10,38 @@ import BookDetails from "../Pages/BookDetails/BookDetails";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
-import Loading from "../Pages/Loading/Loading"; 
-import Error from "../Pages/Error/Error"; 
+import Loading from "../Pages/Loading/Loading";
+import Error from "../Pages/Error/Error";
+
+const serverURL =
+  "https://book-haven-server-199.vercel.app";
+
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to fetch");
+    return response.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <Error />, 
+    errorElement: <Error />,
     children: [
       {
         index: true,
         element: <Home />,
-        loader: async () => {
-          // Loading spinner while fetching
-          const response = await fetch("http://localhost:3000/Books");
-          return response.json();
-        },
+        loader: async () => await fetchData(`${serverURL}/Books`),
       },
       {
         path: "/all-books",
         element: <AllBooks />,
-        loader: async () => {
-          const response = await fetch("http://localhost:3000/Books");
-          return response.json();
-        },
+        loader: async () => await fetchData(`${serverURL}/Books`),
       },
       {
         path: "/add-book",
@@ -75,10 +82,8 @@ export const router = createBrowserRouter([
             <BookDetails />
           </PrivateRoute>
         ),
-        loader: async ({ params }) => {
-          const response = await fetch(`http://localhost:3000/Books/${params.id}`);
-          return response.json();
-        },
+        loader: async ({ params }) =>
+          await fetchData(`${serverURL}/Books/${params.id}`),
       },
       {
         path: "/profile",

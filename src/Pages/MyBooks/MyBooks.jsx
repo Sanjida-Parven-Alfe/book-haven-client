@@ -5,16 +5,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
+const serverURL = "https://book-haven-server-199.vercel.app";
+
 const MyBooks = () => {
   const [user] = useAuthState(auth);
   const [myBooks, setMyBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/my-books/${user.email}`)
+        .get(`${serverURL}/my-books/${user.email}`)
         .then((res) => {
           setMyBooks(res.data);
           setLoading(false);
@@ -35,7 +36,7 @@ const MyBooks = () => {
     if (!confirmDelete) return;
 
     axios
-      .delete(`http://localhost:3000/Books/${id}`)
+      .delete(`${serverURL}/Books/${id}`)
       .then(() => {
         setMyBooks((prevBooks) => prevBooks.filter((book) => book._id !== id));
         toast.success("🗑️ Book deleted successfully!");

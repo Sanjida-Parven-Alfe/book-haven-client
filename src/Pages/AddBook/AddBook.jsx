@@ -3,6 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.config";
 import toast, { Toaster } from "react-hot-toast";
 
+const serverURL = "https://book-haven-server-199.vercel.app";
+
 const AddBook = () => {
   const [user] = useAuthState(auth);
   const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ const AddBook = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/Books", {
+      const res = await fetch(`${serverURL}/Books`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookData),

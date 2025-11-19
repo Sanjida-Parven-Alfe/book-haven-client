@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
+const serverURL = "https://book-haven-server-199.vercel.app";
+
 const UpdateBook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const UpdateBook = () => {
   // Fetch book data by ID
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/Books/${id}`)
+      .get(`${serverURL}/Books/${id}`)
       .then((res) => {
         setBook(res.data);
         setLoading(false);
@@ -35,7 +37,7 @@ const UpdateBook = () => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3000/Books/${id}`, book)
+      .put(`${serverURL}/Books/${id}`, book)
       .then(() => {
         toast.success("📚 Book updated successfully!");
         setTimeout(() => navigate("/my-books"), 1200);
