@@ -1,16 +1,75 @@
-# React + Vite
+#  The Book Haven
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**The Book Haven** is a user-friendly online platform to explore, manage, and share your favorite books. Built with **React** and **Firebase**, it provides a smooth and interactive experience for book lovers.  
 
-Currently, two official plugins are available:
+![Book Haven Homepage](https://i.ibb.co/rKhm6jR6/Book-Haven.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌟 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 📖 **Browse All Books:** Explore a wide collection of books with detailed information including title, author, genre, and description.  
+- ✏️ **Add & Manage Books:** Registered users can add new books, update details, and manage their personal collection.  
+- 🏠 **My Books Dashboard:** Track the books you’ve added, manage updates, and view book statistics easily.  
+- 🔒 **Secure Authentication:** Google login via Firebase Authentication for a safe and smooth experience.  
+- 📱 **Responsive UI:** Fully responsive design that works perfectly on mobile, tablet, and desktop devices.  
+- 📊 **Real-time Stats Display:** Scrollable statistics section showing total books, authors, books sold, and happy readers.  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+**Frontend:**  
+- React.js  
+- Tailwind CSS  
+- React Router  
+
+**Backend & Authentication:**  
+- Firebase (Authentication & Firestore)  
+- MongoDB (Server)  
+
+**Deployment:**  
+- Netlify (Client)  
+- Vercel (Server)  
+
+---
+
+## 🔗 Live Preview & Repository
+
+- 🚀 **Live Site:** [https://the-book-haven-199.netlify.app/](https://the-book-haven-199.netlify.app/)  
+- 💻 **Client Repository:** [https://github.com/Sanjida-Parven-Alfe/book-haven-client.git](https://github.com/Sanjida-Parven-Alfe/book-haven-client.git)  
+- 🛠️ **Server Repository:** [https://github.com/Sanjida-Parven-Alfe/book-haven-server.git](https://github.com/Sanjida-Parven-Alfe/book-haven-server.git)  
+
+---
+
+## 💻 Installation
+
+1. Clone the repository:  
+   ```bash
+   git clone <repo-url>
+2. Navigate to the project folder:
+    ```bash
+    cd <project-folder>
+
+3. Install dependencies:
+    ```bash
+    npm install
+
+4. Start the development server:
+    ```bash
+    npm start
+
+## 📦 Dependencies
+
+### Local Dependencies
+- react
+- react-dom
+- react-router-dom
+- react-scripts
+- tailwindcss
+- firebase
+
+### Dev Dependencies
+- eslint
+- prettier
+
