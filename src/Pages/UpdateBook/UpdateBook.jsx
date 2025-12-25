@@ -31,7 +31,7 @@ const UpdateBook = () => {
       });
   }, [id]);
 
-  // Handle Update Form Submission
+
   const handleUpdate = (e) => {
     e.preventDefault();
 
