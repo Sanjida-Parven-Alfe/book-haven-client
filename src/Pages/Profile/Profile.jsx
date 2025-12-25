@@ -16,7 +16,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] p-4 bg-base-100 text-base-content">
-      {/* Profile Card */}
+    
       <div className="bg-base-200 shadow-lg rounded-xl p-6 flex flex-col items-center gap-4 w-full max-w-md">
         <img
           src={user.photoURL ?? DefaultAvatar}
