@@ -18,7 +18,7 @@ const UpdateBook = () => {
   });
   const [loading, setLoading] = useState(true);
 
-  // Fetch book data by ID
+
   useEffect(() => {
     axios
       .get(`${serverURL}/Books/${id}`)
