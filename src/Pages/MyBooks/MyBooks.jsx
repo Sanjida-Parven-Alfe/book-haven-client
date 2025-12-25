@@ -30,7 +30,6 @@ const MyBooks = () => {
     }
   }, [user]);
 
-
   const handleDelete = (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this book?");
     if (!confirmDelete) return;
