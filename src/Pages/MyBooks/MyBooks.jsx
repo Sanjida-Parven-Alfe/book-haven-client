@@ -31,7 +31,9 @@ const MyBooks = () => {
   }, [user]);
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this book?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this book?"
+    );
     if (!confirmDelete) return;
 
     axios
@@ -72,7 +74,10 @@ const MyBooks = () => {
             </thead>
             <tbody>
               {myBooks.map((book) => (
-                <tr key={book._id} className="text-center hover:bg-base-300 transition">
+                <tr
+                  key={book._id}
+                  className="text-center hover:bg-base-300 transition"
+                >
                   <td className="border p-2">{book.title}</td>
                   <td className="border p-2">{book.author}</td>
                   <td className="border p-2">{book.genre}</td>
