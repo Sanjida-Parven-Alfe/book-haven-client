@@ -8,7 +8,6 @@ import AuthProvider from "./context/AuthProvider.jsx";
 export const ThemeContext = createContext();
 
 const ThemeProvider = ({ children }) => {
-  // Initial state from localStorage
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
 
   // Update html attribute and localStorage whenever theme changes
