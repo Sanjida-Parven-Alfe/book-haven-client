@@ -18,7 +18,6 @@ const UpdateBook = () => {
   });
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     axios
       .get(`${serverURL}/Books/${id}`)
