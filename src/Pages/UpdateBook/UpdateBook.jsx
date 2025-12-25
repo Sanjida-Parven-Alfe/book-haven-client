@@ -31,7 +31,6 @@ const UpdateBook = () => {
       });
   }, [id]);
 
-
   const handleUpdate = (e) => {
     e.preventDefault();
 
