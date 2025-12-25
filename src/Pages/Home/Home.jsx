@@ -108,7 +108,6 @@ const Home = () => {
         )}
       </section>
 
-      {/* Top Genres Section */}
       <section
         className="top-genres py-16 px-6 md:px-16 bg-base-200"
         data-aos="zoom-in-up"
