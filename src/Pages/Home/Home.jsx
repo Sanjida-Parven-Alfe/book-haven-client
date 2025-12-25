@@ -71,7 +71,7 @@ const Home = () => {
 
       <ScrollStats />
 
-      {/* Latest Books Section */}
+
       <section className="latest-books py-16 px-6 md:px-16">
         <h2
           data-aos="zoom-in-up"
