@@ -5,36 +5,35 @@ import Loading from "../../Pages/Loading/Loading";
 import { FaSearch, FaFilter, FaSortAmountDown } from "react-icons/fa";
 
 const AllBooks = () => {
-  const allBooks = useLoaderData(); // Load all data initially
+  const allBooks = useLoaderData(); 
   const navigation = useNavigation();
   
-  // States for Search, Filter, Sort
+  
   const [books, setBooks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   
-  // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Show 8 books per page
+  const itemsPerPage = 8; 
 
   useEffect(() => {
     if (allBooks) {
       let filtered = [...allBooks];
 
-      // 1. Search Logic
+  
       if (searchQuery) {
         filtered = filtered.filter((book) =>
           book.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
 
-      // 2. Filter Logic (Genre)
+
       if (selectedGenre) {
         filtered = filtered.filter((book) => book.genre === selectedGenre);
       }
 
-      // 3. Sort Logic (Rating)
+
       if (sortOrder === "asc") {
         filtered.sort((a, b) => a.rating - b.rating);
       } else if (sortOrder === "desc") {
