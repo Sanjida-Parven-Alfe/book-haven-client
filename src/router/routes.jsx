@@ -15,6 +15,9 @@ import Error from "../Pages/Error/Error";
 import DashboardHome from "../Pages/Dashboard/DashboardHome"; 
 import AboutUs from "../Pages/AboutUs";
 import Contact from "../Pages/Contact";
+import ManageAllBooks from "../Pages/Dashboard/ManageAllBooks";
+import ManageUsers from "../Pages/Dashboard/ManageUsers";
+import AdminStats from "../Pages/Dashboard/AdminStats";
 
 const serverURL = "https://book-haven-server-199.vercel.app";
 
@@ -63,11 +66,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/book-details/:id",
-        element: (
-          <PrivateRoute>
-            <BookDetails />
-          </PrivateRoute>
-        ),
+        element: <BookDetails />,
         loader: async ({ params }) =>
           await fetchData(`${serverURL}/Books/${params.id}`),
       },
@@ -101,6 +100,18 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "manage-all-books",
+        element: <ManageAllBooks />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
+      {
+        path: "admin-stats",
+        element: <AdminStats />,
       },
     ],
   },
