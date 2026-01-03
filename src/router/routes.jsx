@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
 import Error from "../Pages/Error/Error";
 import DashboardHome from "../Pages/Dashboard/DashboardHome"; 
+import AboutUs from "../Pages/AboutUs";
+import Contact from "../Pages/Contact";
 
 const serverURL = "https://book-haven-server-199.vercel.app";
 
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
         loader: async () => await fetchData(`${serverURL}/Books`),
       },
       {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
         path: "/login",
         element: <Login />,
       },
@@ -61,11 +71,8 @@ export const router = createBrowserRouter([
         loader: async ({ params }) =>
           await fetchData(`${serverURL}/Books/${params.id}`),
       },
-   
     ],
   },
-  
-
   {
     path: "/dashboard",
     element: (

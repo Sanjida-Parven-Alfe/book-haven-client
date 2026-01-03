@@ -16,17 +16,23 @@ const Registration = () => {
 
   const googleProvider = new GoogleAuthProvider();
 
-  const isValidPassword = (password) => {
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasLength = password.length >= 6;
-    return hasUppercase && hasLowercase && hasLength;
+  const isValidPassword = (pass) => {
+    const hasUppercase = /[A-Z]/.test(pass);
+    const hasLowercase = /[a-z]/.test(pass);
+    const hasLength = pass.length >= 6;
+    
+    if (!hasLength) return "Password must be at least 6 characters long.";
+    if (!hasUppercase) return "Password must have at least one uppercase letter.";
+    if (!hasLowercase) return "Password must have at least one lowercase letter.";
+    return "";
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!isValidPassword(password)) {
-      setPasswordError("Password must be at least 6 characters with uppercase and lowercase letters.");
+    
+    const errorMsg = isValidPassword(password);
+    if (errorMsg) {
+      setPasswordError(errorMsg);
       return;
     } else {
       setPasswordError("");
@@ -35,7 +41,7 @@ const Registration = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name, photoURL: photoURL });
-      navigate("/"); // redirect to home
+      navigate("/");
     } catch (error) {
       alert(error.message);
     }
@@ -59,12 +65,10 @@ const Registration = () => {
           <label className="block text-sm mb-1 text-base-content">Name</label>
           <input
             type="text"
-            name="name"
             placeholder="Enter Your Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            autoComplete="off"
-            className="input input-bordered w-full bg-white/20 text-base-content placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-700"
+            className="input input-bordered w-full bg-white/20 text-base-content focus:outline-none focus:ring-2 focus:ring-indigo-700"
             required
           />
         </div>
@@ -73,12 +77,10 @@ const Registration = () => {
           <label className="block text-sm mb-1 text-base-content">Email</label>
           <input
             type="email"
-            name="email"
             placeholder="example@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="off"
-            className="input input-bordered w-full bg-white/20 text-base-content placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-700"
+            className="input input-bordered w-full bg-white/20 text-base-content focus:outline-none focus:ring-2 focus:ring-indigo-700"
             required
           />
         </div>
@@ -87,12 +89,10 @@ const Registration = () => {
           <label className="block text-sm mb-1 text-base-content">Photo URL</label>
           <input
             type="text"
-            name="photo"
             placeholder="Your photo URL here"
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
-            autoComplete="off"
-            className="input input-bordered w-full bg-white/20 text-base-content placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-700"
+            className="input input-bordered w-full bg-white/20 text-base-content focus:outline-none focus:ring-2 focus:ring-indigo-700"
           />
         </div>
 
@@ -100,12 +100,10 @@ const Registration = () => {
           <label className="block text-sm mb-1 text-base-content">Password</label>
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
-            className="input input-bordered w-full bg-white/20 text-base-content placeholder-gray-400/60 focus:outline-none focus:ring-2 focus:ring-indigo-700 pr-10"
+            className="input input-bordered w-full bg-white/20 text-base-content focus:outline-none focus:ring-2 focus:ring-indigo-700 pr-10"
             required
           />
           <button
@@ -115,12 +113,12 @@ const Registration = () => {
           >
             {showPassword ? <FaEye /> : <FaEyeSlash />}
           </button>
-          {passwordError && <p className="text-red-600 text-sm mt-1">{passwordError}</p>}
+          {passwordError && <p className="text-red-500 text-xs mt-1 font-medium">{passwordError}</p>}
         </div>
 
-        <button type="submit" className="btn btn-primary w-full">
-          Register
-        </button>
+        <button type="submit" className="btn btn-primary w-full">Register</button>
+
+        <div className="divider">OR</div>
 
         <button
           type="button"

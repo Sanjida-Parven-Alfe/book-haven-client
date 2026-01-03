@@ -1,37 +1,40 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import { Link } from "react-router-dom";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { FaStar } from "react-icons/fa";
 
 const BookCard = ({ book }) => {
-
-      useEffect(() => {
-        AOS.init({ duration: 1000, once: false });
-      }, []);
-
   return (
-    <motion.div
-      data-aos="zoom-in-up"
-      whileHover={{ scale: 1.05 }}
-      className="book-card bg-white rounded shadow p-4 flex flex-col"
-    >
-      <img
-        src={book.coverImage}
-        alt={book.title}
-        className="h-64 object-cover rounded mb-4"
-      />
-      <h3 className="text-xl text-black font-semibold mb-1">{book.title}</h3>
-      <p className="text-black mb-2">Author: {book.author}</p>
-      <p className="text-black mb-2">Genre: {book.genre}</p>
-      <p className="text-black mb-4">Rating: {book.rating} ⭐</p>
-      <Link
-        to={`/book-details/${book._id}`}
-        className="mt-auto bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition text-center"
-      >
-        View Details
-      </Link>
-    </motion.div>
+    <div className="card bg-base-100 shadow-md hover:shadow-2xl transition-all duration-300 border border-base-200 flex flex-col h-full group">
+      <figure className="relative overflow-hidden h-64">
+        <img
+          src={book.coverImage}
+          alt={book.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        <div className="absolute top-3 right-3 badge badge-secondary font-bold">{book.genre}</div>
+      </figure>
+      
+      <div className="card-body p-5 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+           <h2 className="card-title text-lg line-clamp-1 group-hover:text-primary transition-colors">{book.title}</h2>
+           <div className="flex items-center text-orange-400 gap-1 shrink-0">
+             <FaStar /> <span className="text-sm font-bold text-base-content">{book.rating}</span>
+           </div>
+        </div>
+        
+        <p className="text-sm text-base-content/60 mb-4 italic">By {book.author}</p>
+        <p className="text-sm text-base-content/70 line-clamp-2 mb-6">{book.summary}</p>
+        
+        <div className="mt-auto">
+          <Link
+            to={`/book-details/${book._id}`}
+            className="btn btn-primary btn-outline btn-sm w-full rounded-lg hover:btn-primary"
+          >
+            View Details
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

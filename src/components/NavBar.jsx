@@ -69,6 +69,26 @@ const NavBar = () => {
                 All Books
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/about-us"
+                className={({ isActive }) =>
+                  `text-base-content ${isActive ? "text-red-600 font-bold" : ""}`
+                }
+              >
+                About Us
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `text-base-content ${isActive ? "text-red-600 font-bold" : ""}`
+                }
+              >
+                Contact
+              </NavLink>
+            </li>
             {user && (
               <li>
                 <NavLink
@@ -110,6 +130,26 @@ const NavBar = () => {
               }
             >
               All Books
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about-us"
+              className={({ isActive }) =>
+                `text-base-content text-lg ${isActive ? "text-red-600 font-bold" : ""}`
+              }
+            >
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `text-base-content text-lg ${isActive ? "text-red-600 font-bold" : ""}`
+              }
+            >
+              Contact
             </NavLink>
           </li>
         </ul>
