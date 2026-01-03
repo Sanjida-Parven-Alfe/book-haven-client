@@ -1,56 +1,195 @@
-import { Link, useLoaderData, useNavigation } from "react-router-dom";
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import { useLoaderData, useNavigation, Link } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 import Loading from "../../Pages/Loading/Loading";
+import { FaSearch, FaFilter, FaSortAmountDown } from "react-icons/fa";
 
 const AllBooks = () => {
-  const data = useLoaderData();
+  const allBooks = useLoaderData(); // Load all data initially
   const navigation = useNavigation();
+  
+  // States for Search, Filter, Sort
+  const [books, setBooks] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+  
+  // Pagination States
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8; // Show 8 books per page
 
-  const [sortOrder, setSortOrder] = useState(""); 
+  useEffect(() => {
+    if (allBooks) {
+      let filtered = [...allBooks];
 
-  const sortedBooks = useMemo(() => {
-    if (!sortOrder) return data;
-    return [...data].sort((a, b) =>
-      sortOrder === "asc" ? a.rating - b.rating : b.rating - a.rating
-    );
-  }, [data, sortOrder]);
+      // 1. Search Logic
+      if (searchQuery) {
+        filtered = filtered.filter((book) =>
+          book.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      // 2. Filter Logic (Genre)
+      if (selectedGenre) {
+        filtered = filtered.filter((book) => book.genre === selectedGenre);
+      }
+
+      // 3. Sort Logic (Rating)
+      if (sortOrder === "asc") {
+        filtered.sort((a, b) => a.rating - b.rating);
+      } else if (sortOrder === "desc") {
+        filtered.sort((a, b) => b.rating - a.rating);
+      }
+
+      setBooks(filtered);
+      setCurrentPage(1); 
+    }
+  }, [allBooks, searchQuery, selectedGenre, sortOrder]);
+
+  
+  const uniqueGenres = [...new Set(allBooks.map(book => book.genre))];
+
+
+  const indexOfLastBook = currentPage * itemsPerPage;
+  const indexOfFirstBook = indexOfLastBook - itemsPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+  const totalPages = Math.ceil(books.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (navigation.state === "loading") {
     return <Loading />;
   }
 
   return (
-    <div className="px-4 sm:px-10 md:px-20 pb-10 md:pb-20 bg-base-100 text-base-content min-h-screen">
-      <p className="text-center font-bold text-3xl sm:text-4xl py-6 sm:py-10 border-b-2 pb-2">
-        All Books
-      </p>
-
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-end my-6 md:my-10 gap-2">
-        <label className="font-semibold mb-2 md:mb-0">Sort by Rating:</label>
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="border p-1 rounded bg-base-200 text-base-content"
-        >
-          <option value="">None</option>
-          <option value="asc">Low to High</option>
-          <option value="desc">High to Low</option>
-        </select>
+    <div className="bg-base-100 min-h-screen pb-20">
+      
+      
+      <div className="bg-base-200 py-10 px-6 text-center mb-10">
+        <h1 className="text-4xl font-bold mb-2">Browse Our Collection</h1>
+        <p className="text-base-content/60">Find your next favorite read from our extensive library.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
-        {sortedBooks.map((book) => (
-          <BookCard key={book._id} book={book}>
-            <Link
-              to={`/book-details/${book._id}`}
-              className="btn btn-primary mt-2 w-full text-center"
+   
+      <div className="container mx-auto px-6 mb-12">
+        <div className="flex flex-col lg:flex-row gap-4 justify-between items-center bg-base-100 p-4 rounded-xl shadow-sm border border-base-200">
+          
+     
+          <div className="relative w-full lg:w-1/3">
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by book title..."
+              className="input input-bordered w-full pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+     
+          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+            
+         
+            <div className="relative w-full sm:w-48">
+               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10 pointer-events-none">
+                 <FaFilter />
+               </div>
+               <select
+                className="select select-bordered w-full pl-10"
+                value={selectedGenre}
+                onChange={(e) => setSelectedGenre(e.target.value)}
+              >
+                <option value="">All Genres</option>
+                {uniqueGenres.map((genre, idx) => (
+                  <option key={idx} value={genre}>{genre}</option>
+                ))}
+              </select>
+            </div>
+
+         
+            <div className="relative w-full sm:w-48">
+               <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 z-10 pointer-events-none">
+                 <FaSortAmountDown />
+               </div>
+               <select
+                className="select select-bordered w-full pl-10"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="">Sort by Rating</option>
+                <option value="asc">Low to High</option>
+                <option value="desc">High to Low</option>
+              </select>
+            </div>
+
+     
+            <button 
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedGenre("");
+                setSortOrder("");
+              }}
+              className="btn btn-ghost text-red-500"
             >
-              View Details
-            </Link>
-          </BookCard>
-        ))}
+              Reset
+            </button>
+          </div>
+        </div>
       </div>
+
+   
+      <div className="container mx-auto px-6">
+        {currentBooks.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {currentBooks.map((book) => (
+              <BookCard key={book._id} book={book} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <img src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png" alt="No Data" className="w-24 h-24 mx-auto mb-4 opacity-50" />
+            <h3 className="text-2xl font-bold text-gray-400">No books found</h3>
+            <p className="text-gray-500">Try adjusting your search or filters.</p>
+          </div>
+        )}
+      </div>
+
+      
+      {books.length > itemsPerPage && (
+        <div className="flex justify-center mt-16">
+          <div className="join">
+            <button 
+              className="join-item btn" 
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+            
+         
+            {[...Array(totalPages)].map((_, index) => (
+               <button
+                 key={index}
+                 className={`join-item btn ${currentPage === index + 1 ? "btn-active btn-primary" : ""}`}
+                 onClick={() => handlePageChange(index + 1)}
+               >
+                 {index + 1}
+               </button>
+            ))}
+
+            <button 
+              className="join-item btn" 
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              »
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
