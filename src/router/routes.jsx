@@ -1,5 +1,6 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom"; 
 import MainLayout from "../layout/MainLayout";
+import DashboardLayout from "../layout/DashboardLayout"; 
 import Home from "../Pages/Home/Home";
 import AllBooks from "../Pages/AllBooks/AllBooks";
 import AddBook from "../Pages/AddBook/AddBook";
@@ -10,11 +11,10 @@ import BookDetails from "../Pages/BookDetails/BookDetails";
 import Profile from "../Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
-import Loading from "../Pages/Loading/Loading";
 import Error from "../Pages/Error/Error";
+import DashboardHome from "../Pages/Dashboard/DashboardHome"; 
 
-const serverURL =
-  "https://book-haven-server-199.vercel.app";
+const serverURL = "https://book-haven-server-199.vercel.app";
 
 async function fetchData(url) {
   try {
@@ -44,30 +44,6 @@ export const router = createBrowserRouter([
         loader: async () => await fetchData(`${serverURL}/Books`),
       },
       {
-        path: "/add-book",
-        element: (
-          <PrivateRoute>
-            <AddBook />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/my-books",
-        element: (
-          <PrivateRoute>
-            <MyBooks />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/update-book/:id",
-        element: (
-          <PrivateRoute>
-            <UpdateBook />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/login",
         element: <Login />,
       },
@@ -85,8 +61,38 @@ export const router = createBrowserRouter([
         loader: async ({ params }) =>
           await fetchData(`${serverURL}/Books/${params.id}`),
       },
+   
+    ],
+  },
+  
+
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    errorElement: <Error />,
+    children: [
       {
-        path: "/profile",
+        index: true,
+        element: <DashboardHome />, 
+      },
+      {
+        path: "add-book",
+        element: <AddBook />,
+      },
+      {
+        path: "my-books",
+        element: <MyBooks />,
+      },
+      {
+        path: "update-book/:id",
+        element: <UpdateBook />,
+      },
+      {
+        path: "profile",
         element: <Profile />,
       },
     ],

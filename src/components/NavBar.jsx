@@ -6,7 +6,7 @@ import { auth } from "../firebase/firebase.config";
 import { signOut } from "firebase/auth";
 import DefaultAvatar from "../assets/account.png";
 import LogoutImg from "../assets/logout.png";
-import { ThemeContext } from "../main.jsx"; 
+import { ThemeContext } from "../main.jsx";
 
 const NavBar = () => {
   const [user] = useAuthState(auth);
@@ -22,7 +22,6 @@ const NavBar = () => {
 
   return (
     <div className="navbar flex justify-between shadow-md px-none md:px-20 sticky top-0 left-0 w-full z-50 bg-base-100 transition-colors duration-300">
-      {/* Navbar Start */}
       <div className="navbar-start w-auto">
         <div className="dropdown">
           <div
@@ -70,69 +69,18 @@ const NavBar = () => {
                 All Books
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/add-book"
-                className={({ isActive }) =>
-                  `text-base-content ${isActive ? "text-red-600 font-bold" : ""}`
-                }
-              >
-                Add Book
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/my-books"
-                className={({ isActive }) =>
-                  `text-base-content ${isActive ? "text-red-600 font-bold" : ""}`
-                }
-              >
-                My Books
-              </NavLink>
-            </li>
-
-            {/* Theme toggle for md and smaller */}
-            <li className="mt-2 flex justify-center">
-              <label className="flex cursor-pointer gap-2 items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-yellow-400"
+            {user && (
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    `text-base-content ${isActive ? "text-red-600 font-bold" : ""}`
+                  }
                 >
-                  <circle cx="12" cy="12" r="5" />
-                  <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
-                </svg>
-
-                <input
-                  type="checkbox"
-                  className="toggle theme-controller"
-                  onChange={toggleTheme}
-                  checked={theme === "dark"}
-                />
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-blue-400"
-                >
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-              </label>
-            </li>
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -142,7 +90,6 @@ const NavBar = () => {
         </Link>
       </div>
 
-      {/* Navbar Center */}
       <div className="navbar-center w-auto hidden lg:flex">
         <ul className="menu gap-6 menu-horizontal px-1">
           <li>
@@ -165,32 +112,10 @@ const NavBar = () => {
               All Books
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/add-book"
-              className={({ isActive }) =>
-                `text-base-content text-lg ${isActive ? "text-red-600 font-bold" : ""}`
-              }
-            >
-              Add Book
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-books"
-              className={({ isActive }) =>
-                `text-base-content text-lg ${isActive ? "text-red-600 font-bold" : ""}`
-              }
-            >
-              My Books
-            </NavLink>
-          </li>
         </ul>
       </div>
 
-      {/* Navbar End */}
       <div className="navbar-end w-auto flex items-center gap-3 md:gap-5">
-        {/* Theme Toggle - only show on large device */}
         <label className="hidden lg:flex cursor-pointer gap-2 items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -250,12 +175,11 @@ const NavBar = () => {
 
         {user && (
           <div className="flex items-center gap-5">
-            {/* Updated Profile Section */}
             <div
               className="tooltip tooltip-bottom"
               data-tip={user.displayName ? user.displayName : "User"}
             >
-              <Link to="/profile">
+              <Link to="/dashboard">
                 <img
                   src={user.photoURL ? user.photoURL : DefaultAvatar}
                   alt={user.displayName ? user.displayName : "User"}
@@ -264,7 +188,6 @@ const NavBar = () => {
               </Link>
             </div>
 
-            {/* Logout */}
             <div className="tooltip tooltip-bottom" data-tip="Logout">
               <button
                 onClick={handleLogout}
